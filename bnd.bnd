@@ -1,0 +1,5 @@
+Bundle-Name: bulk-order-renderer
+Bundle-SymbolicName: com.liferay.commerce.demo.bulk.renderer
+Bundle-Version: 1.0.0
+Web-ContextPath: /bulk-order-renderer
+-metatype: *
