@@ -1,7 +1,9 @@
+<%@ page import="com.liferay.commerce.product.util.CPInstanceHelper" %>
 <%@ include file="/META-INF/resources/init.jsp" %>
 
 <%
     CPContentHelper cpContentHelper = (CPContentHelper)request.getAttribute(CPContentWebKeys.CP_CONTENT_HELPER);
+    CPInstanceHelper cpInstanceHelper = (CPInstanceHelper)request.getAttribute("cpInstanceHelper");
     CPDataSourceResult cpDataSourceResult = (CPDataSourceResult)request.getAttribute(CPWebKeys.CP_DATA_SOURCE_RESULT);
 
     List<CPCatalogEntry> cpCatalogEntries = cpDataSourceResult.getCPCatalogEntries();
@@ -17,19 +19,17 @@
                         <thead>
                         <tr class="">
                             <th class="table-cell-expand-smaller">
+                            </th>
+                            <th class="table-cell-expand-smaller">
                                 <p class="table-list-title">SKU</p>
                             </th>
                             <th class="table-cell-expand-smaller">
                                 <p class="table-list-title">Name</p>
                             </th>
                             <th class="table-cell-expand-smaller">
-                                <p class="table-list-title">Description</p>
-                            </th>
-                            <th class="table-cell-expand-smaller">
                                 <p class="table-list-title">Price</p>
                             </th>
                             <th class="table-cell-expand-smaller">
-
                             </th>
                         </tr>
                         </thead>
@@ -54,11 +54,12 @@
                                     skuValue = cpContentHelper.getDefaultCPSku(cpCatalogEntry).getSku();
                                     cpInstanceId = cpSkus.get(0).getCPInstanceId();
                                 }
+                                String thumbnailSrc = cpInstanceHelper.getCPInstanceThumbnailSrc(cpInstanceId);
 
                             %>
+                            <td class=""><img src="<%= thumbnailSrc %>"></img></td>
                             <td class=""><a href="<%= friendlyURL %>"><%= skuValue %></a></td>
                             <td class=""><a href="<%= friendlyURL %>"><%= cpCatalogEntry.getName() %></a></td>
-                            <td class=""><%= cpCatalogEntry.getShortDescription() %> </td>
                             <td class="">
                                 <commerce-ui:price
                                         CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>"
