@@ -1,8 +1,8 @@
 package com.liferay.commerce.demo.bulk.renderer.list;
 
-import com.liferay.commerce.price.CommerceProductPriceCalculation;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.content.render.list.CPContentListRenderer;
+import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -48,6 +48,8 @@ public class BulkOrderProductListRenderer implements CPContentListRenderer{
     @Override
     public void render(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
+        httpServletRequest.setAttribute("cpInstanceHelper", _cpInstanceHelper);
+
         _jspRenderer.renderJSP(
                 _servletContext, httpServletRequest, httpServletResponse,
                 "/list_render/view.jsp");
@@ -62,6 +64,5 @@ public class BulkOrderProductListRenderer implements CPContentListRenderer{
     private JSPRenderer _jspRenderer;
 
     @Reference
-    private CommerceProductPriceCalculation _commerceProductPriceCalculation;
-
+    private CPInstanceHelper _cpInstanceHelper;
 }

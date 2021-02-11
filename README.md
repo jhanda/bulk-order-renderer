@@ -1,6 +1,6 @@
 # Bulk Order Renderer
 
-![Freelancer](doc/preview.gif
+![Freelancer](doc/preview.png
 )
 
 ## Usage
@@ -9,11 +9,11 @@ This module provides a bulk order friendly renderer.
 
 ## Requirements
 
-- Liferay Commerce 2.1.2
+- Liferay Commerce 3.0.0
 
 ## Installation
 
-- Download the `.jar` file in [releases](https://github.com/jhanda/BulkOrderRenderer/releases/tag/1.0.0) and deploy it into Liferay.
+- Download the `.jar` file in [releases](https://github.com/jhanda/bulk-order-renderer/releases/tag/1.0.1) and deploy it into Liferay.
 
 or
 
