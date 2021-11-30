@@ -65,23 +65,28 @@
                             %>
 
                             <td class="">
-                                <a href="<%= friendlyURL %>"><img class="card-img-top img-fluid" src="<%= thumbnailSrc %>"></a>
+                                <a href="<%= friendlyURL %>">
+                                <liferay-adaptive-media:img
+									class="img-fluid product-card-picture"
+									fileVersion="<%= cpContentHelper.getCPDefinitionImageFileVersion(cpCatalogEntry.getCPDefinitionId(), request) %>"
+								/>
+								</a>
                             </td>
                             <td class=""><a href="<%= friendlyURL %>"><%= skuValue %></a></td>
                             <td class=""><a href="<%= friendlyURL %>"><%= cpCatalogEntry.getName() %></a></td>
                             <td class="">
                                 <commerce-ui:price
-                                        CPDefinitionId="<%= cpCatalogEntry.getCPDefinitionId() %>"
-                                        CPInstanceId="<%= (cpSku == null) ? 0 : cpSku.getCPInstanceId() %>"
-                                        id='<%= "productDetail_" + cpCatalogEntry.getCPDefinitionId() %>'
+                                        compact="<%= true %>"
+                                        CPCatalogEntry = "<%= cpCatalogEntry %>"
                                 />
                             </td>
                             <c:choose>
                                 <c:when test="<%= cpSku != null %>">
                                     <td>
                                         <commerce-ui:add-to-cart
-                                                        CPInstanceId="<%= cpSku.getCPInstanceId() %>"
-                                                        id="<%= addToCartId %>"
+                                                        block="<%= false %>"
+														CPCatalogEntry="<%= cpCatalogEntry %>"
+														options='<%= "[]" %>'
                                         />
                                     </td>
                                 </c:when>
