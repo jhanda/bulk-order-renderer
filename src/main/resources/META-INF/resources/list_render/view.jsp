@@ -1,15 +1,9 @@
-<%@ page import="com.liferay.commerce.product.util.CPInstanceHelper" %>
 <%@ include file="/META-INF/resources/init.jsp" %>
 
 <%
     CPContentHelper cpContentHelper = (CPContentHelper)request.getAttribute(CPContentWebKeys.CP_CONTENT_HELPER);
-    CPInstanceHelper cpInstanceHelper = (CPInstanceHelper)request.getAttribute("cpInstanceHelper");
-
     CPDataSourceResult cpDataSourceResult = (CPDataSourceResult)request.getAttribute(CPWebKeys.CP_DATA_SOURCE_RESULT);
-
     List<CPCatalogEntry> cpCatalogEntries = cpDataSourceResult.getCPCatalogEntries();
-    CommerceContext commerceContext = (CommerceContext)request.getAttribute(CommerceWebKeys.COMMERCE_CONTEXT);
-
 %>
 <c:choose>
     <c:when test="<%= !cpCatalogEntries.isEmpty() %>">
@@ -19,9 +13,8 @@
                     <table class="table table-autofit">
                         <thead>
                             <tr>
-                                <th>
-
-                                </th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
                                 <th>
                                     <p class="table-list-title">SKU</p>
                                 </th>
@@ -31,9 +24,7 @@
                                 <th>
                                     <p class="table-list-title">Price</p>
                                 </th>
-                                <th>
-
-                                </th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <%
@@ -44,26 +35,22 @@
                                 String friendlyURL = cpContentHelper.getFriendlyURL(cpCatalogEntry, themeDisplay);
                                 CPSku cpSku = cpContentHelper.getDefaultCPSku(cpCatalogEntry);
 
-                                long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
-
                                 String skuValue;
-                                long cpInstanceId = 0;
-
-
                                 List<CPSku> cpSkus = cpCatalogEntry.getCPSkus();
-                                cpInstanceId = cpSkus.get(0).getCPInstanceId();
-
-                                String addToCartId = PortalUtil.generateRandomKey(request, "add-to-cart");
 
                                 if (cpSkus.size() > 1){
                                     skuValue = "Multiple SKUs";
                                 }else {
                                     skuValue = cpContentHelper.getDefaultCPSku(cpCatalogEntry).getSku();
                                 }
-
-                                String thumbnailSrc = cpInstanceHelper.getCPInstanceThumbnailSrc(cpInstanceId);
                             %>
 
+                            <td class="">
+                                <commerce-ui:add-to-wish-list
+                                        CPCatalogEntry="<%= cpCatalogEntry %>"
+                                        large="<%= true %>"
+                                />
+                            </td>
                             <td class="">
                                 <a href="<%= friendlyURL %>">
                                 <liferay-adaptive-media:img
@@ -84,9 +71,12 @@
                                 <c:when test="<%= cpSku != null %>">
                                     <td>
                                         <commerce-ui:add-to-cart
-                                                        block="<%= false %>"
-														CPCatalogEntry="<%= cpCatalogEntry %>"
-														options='<%= "[]" %>'
+                                                alignment="right"
+                                                CPCatalogEntry="<%= cpCatalogEntry %>"
+                                                inline="<%= true %>"
+                                                namespace="<%= liferayPortletResponse.getNamespace() %>"
+                                                options='<%= "[]" %>'
+                                                size="sm"
                                         />
                                     </td>
                                 </c:when>
